@@ -27,8 +27,22 @@ router.get('/new', (req, res) => {
     res.render('foods/new.ejs');
 });
 
-// GET /users/:userId/foods
-
+// GET /users/:userId/foods/:recipeId
+router.get('/:recipeId', async (req, res) => {
+    try {
+    // look up the user from session
+    const currentUser = await User.findById(req.session.user._id);
+    // find the recipe by the recipe id from req.params
+    const recipe = currentUser.pantry.id(req.params.recipeId);
+    // render the show.ejs passing the recipe data in the context object
+    res.render('foods/show.ejs', {
+        recipe: recipe,
+    });
+    } catch (error) {
+    // if error occurs, redirect back home
+    res.redirect('/');
+    }
+});
 
 // POST /users/:userId/foods
 router.post('/', async (req, res) => {

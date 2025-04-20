@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--include the nav-->
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1><%= recipe.foodName %></h1>
+    <p><strong>About this dish:</strong> <%= recipe.description %></p>
+    <p><strong>Origin:</strong> <%= recipe.cuisine %></p>
+    <p><strong>Ingredients:</strong> <%= recipe.ingredients %></p>
+    <p><strong>Cooking Instructions:</strong> <%= recipe.instructions %></p>
+
+     <!-- Add the following EDIT link -->
+     <a href="/users/<%= user._id %>/foods/<%= recipe._id %>/edit">
+        Edit this recipe
+    </a>
+
+    <!-- We'll use method-override to allow us to hit a delete route: -->
+    <form
+      action="/users/<%= user._id %>/foods/<%= recipe._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Delete this recipe</button>
+    </form>
+</body>
+</html>
