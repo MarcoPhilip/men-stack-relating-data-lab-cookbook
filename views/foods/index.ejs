@@ -6,6 +6,17 @@
     <title>My Pantry</title>
   </head>
   <body>
+    <%- include('../partials/_navbar.ejs') %>
     <h1>Welcome to my Pantry</h1>
+    <a href="/users/<%=user._id%>/foods/new">Add a Recipe</a>
+    <ul>
+        <% pantry.forEach((recipe)=>{ %>
+            <li>
+                <a href="/users/<%= user._id %>/foods/<%= recipe._id %>">
+                    <%= recipe.foodName %>
+                </a>
+            </li>
+        <% }) %>
+    </ul>
   </body>
 </html>
