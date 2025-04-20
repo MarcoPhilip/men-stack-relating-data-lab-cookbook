@@ -61,4 +61,37 @@ router.post('/', async (req, res) => {
     }
 });
 
+
+// DELETE //users/:userId/applications/:applicationsId
+router.delete('/:recipeId', async (req, res) => {
+    try {
+        // look up the user from DB
+        const currentUser = await User.findById(req.session.user._id);
+        // Use the mongoose .delete() method to delete a recipe using id from req.params
+        currentUser.pantry.id(req.params.recipeId).deleteOne();
+        // save the changes
+        await currentUser.save();
+        // redirect back to the foods index view
+        res.redirect(`/users/${currentUser._id}/foods`);
+    } catch (error) {
+        //if error occurs, redirect back home and log error
+        console.log(error)
+        res.redirect('/')
+    }
+})
+
+// GET /users/:userId/foods/edit
+router.get('/:recipeId/edit', async (req, res) => {
+    try {
+        // look for user in DB
+        const currentUser = await User.findById(req.session.user._id);
+        const currentRecipe = currentUser.pantry.id(req.params.recipeId);
+        res.render('foods/edit.ejs', {
+            recipe: currentRecipe,
+        });
+    } catch (error) {
+        res.redirect('/');
+    }
+});
+
 module.exports = router;
