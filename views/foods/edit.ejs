@@ -17,15 +17,10 @@
         <textarea type="text" name="description" id="description" ><%= recipe.description %></textarea>
       
         <label for="cuisine">Cuisine:</label>
-        <input name="cuisine" id="cuisine" value="<%= recipe.cuisine %>" ></input>
-      
-        <label for="ingredients">Ingredients:</label>
-        <input type="text" name="ingredients" id="ingredients" value="<%= recipe.ingredients %>" />
-      
-        <label for="instructions">Instructions:</label>
-        <textarea id="instructions" name="instructions"><%= recipe.instructions %></textarea>
-
+        <input name="cuisine" id="cuisine" value="<%= recipe.cuisine %>" ></input></br>
+   
         <button type="submit">Update <%= recipe.foodName %></button>
+ 
     </form>
   </body>
 </html>

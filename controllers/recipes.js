@@ -30,7 +30,7 @@ router.get('/new', async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        res.redirect('/')
+        res.redirect('/recipes')
     }
 })
 
