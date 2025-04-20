@@ -3,18 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Pantry</title>
+    <title>My Recipes</title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>My Pantry</h1>
-    <a href="/users/<%=user._id%>/foods/new">Add a Pantry</a>
+
+    <h1>Welcome to My Recipes</h1>
+    <a href="/recipes/new">Add a Recipe</a>
     <ul>
-        <% pantry.forEach((recipe)=>{ %>
+        <% recipes.forEach(recipe => { %>
             <li>
-                <a href="/users/<%= user._id %>/foods/<%= recipe._id %>">
-                    <%= recipe.foodName %>
-                </a>
+                <a href="/recipes/<%= recipe._id %>"> <% recipe.name %> </a>
             </li>
         <% }) %>
     </ul>

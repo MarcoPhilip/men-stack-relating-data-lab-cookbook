@@ -18,7 +18,7 @@
 
      <!-- Add the following EDIT link -->
      <a href="/users/<%= user._id %>/foods/<%= recipe._id %>/edit">
-        Edit this recipe
+        Edit this pantry
     </a>
 
     <!-- We'll use method-override to allow us to hit a delete route: -->
@@ -26,7 +26,7 @@
       action="/users/<%= user._id %>/foods/<%= recipe._id %>?_method=DELETE"
       method="POST"
     >
-      <button type="submit">Delete this recipe</button>
+      <button type="submit">Delete this pantry</button>
     </form>
 </body>
 </html>

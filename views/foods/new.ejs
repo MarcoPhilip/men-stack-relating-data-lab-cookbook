@@ -5,11 +5,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a New App</title>
+    <title>Add a New Pantry</title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Add a New Dish Recipe</h1>
+    <h1>Add a New Pantry</h1>
     <form action="/users/<%= user._id %>/foods" method="POST">
 
         <label for="foodName">Name:</label>
@@ -27,7 +27,7 @@
         <label for="instructions">Instructions:</label>
         <textarea id="instructions" name="instructions"></textarea>
 
-        <button type="submit">Add Recipe</button>
+        <button type="submit">Add Pantry</button>
     </form>
   </body>
 </html>

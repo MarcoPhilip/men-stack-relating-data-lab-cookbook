@@ -11,6 +11,8 @@ const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
 
 const authController = require('./controllers/auth.js');
+const recipesController = require('./controllers/recipes.js');
+const ingredientsController = require('./controllers/ingredients.js');
 // Import the foods controller
 const foodsController = require('./controllers/foods.js');
 // Import the users controller
@@ -51,6 +53,8 @@ app.get('/vip-lounge', (req, res) => {
 
 app.use(passUserToView);
 app.use('/auth', authController);
+app.use('/recipes', recipesController);
+app.use('/ingredients', ingredientsController);
 app.use(isSignedIn);
 app.use('/users/:userId/foods', foodsController);
 app.use('/users', usersController);

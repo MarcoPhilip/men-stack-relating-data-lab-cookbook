@@ -37,7 +37,14 @@ const userSchema = mongoose.Schema({
   },
   // embed the foodSchema
   pantry: [foodSchema],
+  recipe: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recipe',
+    }
+  ]
 });
+
 
 const User = mongoose.model('User', userSchema);
 

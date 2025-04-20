@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= recipe.name %></title>
+</head>
+<body>
+   <h1><%= recipe.name %></h1>
+
+   <p><strong>Instructions:</strong></p>
+   <p><%= recipe.instructions %></p>
+
+   <p><strong>Ingredients:</strong></p>
+    <ul>
+        <% recipe.ingredients.forEach(ingredient => { %>
+            <li>
+                <%= recipe.instructions %>
+            </li>
+        <% }) %>
+    </ul>
+
+    <a href="/recipes/<%= recipe._id %>/edit">Edit Recipe</a>
+
+    <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Recipe</button>
+    </form>
+</body>
+</html>
