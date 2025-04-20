@@ -8,9 +8,9 @@
 <body>
   <%- include('./partials/_navbar.ejs') %>
   <% if (user) { %>
-    <h1>Welcome to the app, <%= user.username %>!</h1>
+    <h1>Welcome to the Cookbook App, <%= user.username %>!</h1>
     <p>
-      <a href="/auth/sign-out">Sign out</a>
+      Your go-to site for your favorite dishes and recipes!
     </p>
   <% } else { %>
     <h1>Welcome to the app, guest.</h1>
@@ -19,6 +19,5 @@
       <a href="/auth/sign-in">Sign in</a>.
     </p>
   <% } %>
-  <p><a href="/vip-lounge">Get into the VIP Users Only lounge!</a></p>
 </body>
 </html>

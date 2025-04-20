@@ -94,4 +94,24 @@ router.get('/:recipeId/edit', async (req, res) => {
     }
 });
 
+// PUT /users/:userId/foods/:recipeId
+router.put('/:recipeId', async (req, res) => {
+    try {
+        // find user from req.session
+        const currentUser = await User.findById(req.session.user._id);
+        // find the current recipe from the id from req.params
+        const currentRecipe = currentUser.pantry.id(req.params.recipeId);
+        // use the mongoose .set() method to update the req.body
+        currentRecipe.set(req.body);
+        // save the current user change
+        await currentUser.save();
+        //redirect back to the user's panry page
+        res.redirect(`/users/${currentUser._id}/foods/${req.params.recipeId}`);
+    } catch (error) {
+        // error occurs, log it and redirect back to the home
+        console.log(error);
+        res.redirect('/');
+    }
+});
+
 module.exports = router;
