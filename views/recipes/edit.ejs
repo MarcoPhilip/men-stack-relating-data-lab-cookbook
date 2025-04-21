@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%= recipe.name %></title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Edit: <%= recipe.name %></h1>
+
+    <form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST"> <!-- check later line above-->
+        <strong><label for="name"> Recipe Name:</label></strong>
+        <input type="text" id="name" name="name" value="<%= recipe.name %>" />
+
+        <br><br>
+
+        <strong><label for="ingredients"> Ingredients:</label></strong>
+
+        <br><br>
+
+        <textarea type="text" name="ingredients" value="<%=recipe.ingredients%>" rows="20" cols="40"></textarea>
+  
+        <br><br>
+
+        <strong><label for="instructions"> Instructions:</label></strong>
+
+        <br><br>
+
+        <textarea type="text" id="instructions" name="instructions" value="<%= recipe.instructions %>" rows="15" cols="80"></textarea>
+
+        <br><br>
+
+        <button type="submit">Update <%= recipe.name %></button>
+</body>
+</html>

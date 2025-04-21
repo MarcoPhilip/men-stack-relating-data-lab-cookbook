@@ -8,6 +8,8 @@ const Recipe = require('../models/recipe.js');
 const Ingredient = require('../models/ingredient.js');
 
 // router logic will go here - will be built later on in the lab
+
+// GET /recipes
 router.get('/', async (req, res) => {
     try {
         const recipes = await Recipe.find({}).populate('ingredients');
@@ -20,26 +22,26 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 // GET /recipes/new
 router.get('/new', async (req, res) => {
     try {
-        const ingredients = await Ingredient.find({});
-        res.render('recipes/new.ejs', {
-            ingredients,
-        });
+    const ingredients = await Ingredient.find({});
+    res.render('recipes/new.ejs', {
+        ingredients,
+    });
     } catch (error) {
         console.log(error);
-        res.redirect('/recipes')
+        res.redirect('/');
     }
-})
+});
 
-// GET recipe by recipeId
+
+// GET /:recipeId
 router.get('/:recipeId', async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.recipeId).populate('ingredients').populate('owner');
         res.render('recipes/show.ejs', {
-            recipe,
+            recipe: recipe,
         });
     } catch (error) {
         console.log(error);
@@ -47,56 +49,20 @@ router.get('/:recipeId', async (req, res) => {
     }
 });
 
-// POST '/'
+//POST /recipes
 router.post('/', async (req, res) => {
     try {
+        const currentUser = await User.findById(req.session.user._id);
         const { name, instructions } = req.body;
         let ingredients = req.body.ingredients;
-        
-        // if only one ing, make an array
-        if (!Array.isArray(ingredients)) {
-            ingredients = [ingredients];
-        }
-
-        // create and save ing docs
-        const ingredientDocs = await Promise.all(
-            ingredients.map(async (ing) => {
-                const newIngredient = new Ingredient({
-                    name: ing,
-                });
-                await newIngredient.save();
-                return newIngredient._id;
-            })
-        );
-
-        // Create the new recipe (ref to ing Id)
-        const newRecipe = await Recipe({
-            name,
-            instructions,
-            ingredients,
-            owner: req.session.user._id,
-        });
-
-        await newRecipe.save();
-
-        res.redirect(`/recipes/${newRecipe._id}`);
-
+        currentUser.recipe.push(req.body, req.body.ingredients);
+        await currentUser.save();
+        res.redirect('/');
     } catch (error) {
         console.log(error);
-        res.redirect('/recipes/new');
     }
 });
 
-// DELETE a recipe
-router.delete('/:recipeId', async (req, res) => {
-    try {
-        await Recipe.findByIdAndDelete(req.params.recipeId);
-        res.redirect('/recipes');
-    } catch (error) {
-        console.log(error);
-        res.redirect('/recipes')
-    }
-});
 
 
   
