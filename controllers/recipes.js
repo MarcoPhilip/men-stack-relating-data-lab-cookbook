@@ -50,8 +50,27 @@ router.get('/:recipeId', async (req, res) => {
 // POST '/'
 router.post('/', async (req, res) => {
     try {
-        const { name, instructions, ingredients } = req.body;
-        const newRecipe = await Recipe.create({
+        const { name, instructions } = req.body;
+        let ingredients = req.body.ingredients;
+        
+        // if only one ing, make an array
+        if (!Array.isArray(ingredients)) {
+            ingredients = [ingredients];
+        }
+
+        // create and save ing docs
+        const ingredientDocs = await Promise.all(
+            ingredients.map(async (ing) => {
+                const newIngredient = new Ingredient({
+                    name: ing,
+                });
+                await newIngredient.save();
+                return newIngredient._id;
+            })
+        );
+
+        // Create the new recipe (ref to ing Id)
+        const newRecipe = await Recipe({
             name,
             instructions,
             ingredients,
@@ -60,7 +79,8 @@ router.post('/', async (req, res) => {
 
         await newRecipe.save();
 
-        res.redirect(`/recipes/${newRecipe._id}`)
+        res.redirect(`/recipes/${newRecipe._id}`);
+
     } catch (error) {
         console.log(error);
         res.redirect('/recipes/new');
